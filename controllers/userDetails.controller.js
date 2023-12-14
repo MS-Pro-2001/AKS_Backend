@@ -10,7 +10,7 @@ import familyDetailsModel from "../models/familyDetails.model.js"
 
 export const fetchAllUsers = async (req, res) => {
     try {
-        const user = await userModel.find().select("-password")
+        const user = await userModel.find().sort({ firstName: 1 }).select("-password")
 
         if (user) {
 
@@ -107,10 +107,10 @@ export const addFamilyDetails = async (req, res) => {
 
 
         if (!name_of_member || !relationship_with_user || !dob) {
-            return res.status(400).json({ sucess: false, msg: 'please fill all the fields' })
+            return res.status(400).json({ sucess: false, msg: 'please fill all the fields', type:'warning' })
         }
         if (!user) {
-            return res.status(403).json({ success: false, msg: "could not find user" })
+            return res.status(403).json({ success: false, msg: "could not find user", type:'warning' })
         }
 
 
