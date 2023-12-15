@@ -53,8 +53,8 @@ export const fetchSingleUser = async (req, res) => {
 
 export const UpdateUser = async (req, res) => {
     try {
-        const { firstName, lastName, email, dob, phone_no, ward, address, user_id } = req.body
-        const user = await userModel.findOneAndUpdate({ _id: user_id }, { firstName: firstName, lastName: lastName, email: email, dob: dob, phone_no: phone_no, ward: ward, address: address }, { new: true, runValidators: true }).select('-password')
+        const { firstName, lastName, email, dob, phone_no, ward, address, user_id, familyPhoto } = req.body
+        const user = await userModel.findOneAndUpdate({ _id: user_id }, { firstName: firstName, lastName: lastName, email: email, dob: dob, phone_no: phone_no, ward: ward, address: address, familyPhoto:familyPhoto }, { new: true }).select('-password')
 
 
         if (user) {
