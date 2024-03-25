@@ -1,72 +1,51 @@
 import mongoose, { Schema } from "mongoose";
 
-const userSchema = new Schema({
-
+const userSchema = new Schema(
+  {
     firstName: {
-        type: String,
-        required: [true, 'Firstname is required']
-
+      type: String,
+      required: [true, "Firstname is required"],
+      minLength: [3, "First Name must containes atleast 3 characters"],
     },
     lastName: {
-        type: String,
-        required: [true, 'Lastname is required']
+      type: String,
+      required: [true, "Lastname is required"],
+      minLength: [3, "Last Name must containes atleast 3 characters"],
+    },
 
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
-    },
-    password: {
-        type: String,
-        required: [true, 'password is required'],
-        unique: true,
-        minLength: [6, "Password length must be of atleast 6 characters"]
-    },
     phone_no: {
-        type: String,
-        required: true,
-        match: [/^(\()?\d{3}(\))?(|\s)?\d{3}(|\s)\d{4}$/, "invalid Phone Number"],
-        minLength: [10, "invalid Phone Number"]
-
-
+      type: String,
+      required: true,
+      match: [/^(?:\+?91|0)?[789]\d{9}$/, "Invalid Phone Number"],
     },
     address: {
-        type: String,
-        required: [true, 'Address is required']
-
+      type: String,
+      required: [true, "Address is required"],
     },
     ward: {
-        type: String,
-        required: [true, "ward cannot be empty"],
-        lowercase: true
-
+      type: String,
+      required: [true, "ward cannot be empty"],
+      lowercase: true,
     },
 
-    designation: {
-        type: String,
-        default: 'member'
-
-
-    },
     dob: {
-        type: String,
-        required: true,
-        trim: true,
-
+      type: String,
+      required: [true, "Date of birth cannot be empty"],
+      trim: true,
     },
     familyPhoto: {
-        type: String,
+      type: String,
     },
-    familyDetails: [{
+    familyDetails: [
+      {
         type: mongoose.Types.ObjectId,
-        ref: 'familyDetails'
-    }]
+        ref: "familyDetails",
+      },
+    ],
+  },
+  {
+    timestamps: true,
+  }
+);
 
-},
-    {
-        timestamps: true
-    })
-
-export default mongoose.model("User", userSchema)
+export default mongoose.model("User", userSchema);
