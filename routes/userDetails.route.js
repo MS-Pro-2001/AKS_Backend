@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.get("/fetchallusers", fetchAllUsers);
 router.post("/fetchSingelUser", fetchSingleUser);
-router.post("/UpdateUser", updateUser);
+router.put("/UpdateUser", updateUser);
 
 router.post("/add-family-details", addFamilyDetails);
 router.post("/fetchFamilyDetails", fetchFamilyDetails);

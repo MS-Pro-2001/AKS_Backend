@@ -16,7 +16,7 @@ import userModel from "../models/user.model.js";
 // success-> green color
 
 export const registerUser = async (req, res) => {
-  // console.log(req.body)
+  console.log(req.body);
 
   // const salt = await bcrypt.genSalt(10);
   // const secpass = await bcrypt.hash(req.body.password, salt);
@@ -28,6 +28,7 @@ export const registerUser = async (req, res) => {
       const user = new userModel({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
+        password: req.body.password,
         phone_no: req.body.phone_no,
         ward: req.body.ward,
         address: req.body.address,
@@ -63,11 +64,14 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
   try {
-    const user = await userModel.findOne({ email: req.body.email });
+    const user = await userModel.findOne({ phone_no: req.body.phone_no });
 
     // const match = await bcrypt.compare(req.body.password, user.password)
 
-    if (req.body.email === user.email && req.body.password === user.password) {
+    if (
+      req.body.phone_no === user.phone_no &&
+      req.body.password === user.password
+    ) {
       console.log(user.firstName, "logged in");
 
       res.status(200).json({

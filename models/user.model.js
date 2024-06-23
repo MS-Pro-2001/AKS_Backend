@@ -12,6 +12,10 @@ const userSchema = new Schema(
       required: [true, "Lastname is required"],
       minLength: [3, "Last Name must containes atleast 3 characters"],
     },
+    password: {
+      type: String,
+      required: [true, "Password is required"],
+    },
 
     phone_no: {
       type: String,
