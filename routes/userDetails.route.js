@@ -15,7 +15,7 @@ router.post("/fetchSingelUser", fetchSingleUser);
 router.put("/UpdateUser", updateUser);
 
 router.post("/add-family-details", addFamilyDetails);
-router.post("/fetchFamilyDetails", fetchFamilyDetails);
+router.get("/fetchFamilyDetails/:_id", fetchFamilyDetails);
 router.post("/upateFamilyDetails", updateFamilyDetails);
 
 export default router;

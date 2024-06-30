@@ -92,8 +92,9 @@ export const updateUser = async (req, res) => {
 };
 
 export const fetchFamilyDetails = async (req, res) => {
+  const user_id = req.params._id;
   try {
-    const { user_id } = req.body;
+    // const { user_id } = req.body;
     // console.log(user_id)
     const user = await userModel.findById({ _id: user_id });
     const familyDetails = await familyDetailsModel.find({
@@ -111,48 +112,68 @@ export const fetchFamilyDetails = async (req, res) => {
 };
 
 export const addFamilyDetails = async (req, res) => {
+  console.log({ a: req.body });
   try {
     const { name_of_member, relationship_with_user, dob, user_id } = req.body;
-    const user = await userModel.findById({ _id: user_id });
 
     if (!name_of_member || !relationship_with_user || !dob) {
       return res.status(400).json({
-        sucess: false,
-        msg: "please fill all the fields",
+        success: false,
+        msg: "Please fill all the fields",
         type: "warning",
       });
     }
+
+    const user = await userModel.findById(user_id);
+    console.log({ user });
+
     if (!user) {
-      return res
-        .status(403)
-        .json({ success: false, msg: "could not find user", type: "warning" });
+      return res.status(403).json({
+        success: false,
+        msg: "Could not find user",
+        type: "warning",
+      });
     }
 
     const familyDetail = new familyDetailsModel({
       user: user_id,
-      name_of_member: name_of_member,
-      relationship_with_user: relationship_with_user,
-      dob: dob,
+      name_of_member,
+      relationship_with_user,
+      dob,
     });
+    console.log({ familyDetail });
 
     const session = await mongoose.startSession();
-    // console.log(user)
     session.startTransaction();
-    await familyDetail.save({ session });
-    user.familyDetails.push(familyDetail);
-    await user.save({ session });
-    await session.commitTransaction();
 
-    await familyDetail.save();
-    return res.status(200).json({
-      success: true,
-      msg: "family details added successfully",
-      family_detail: familyDetail,
-    });
+    try {
+      await familyDetail.save({ session });
+
+      await userModel.updateOne(
+        { _id: user_id },
+        { $push: { familyDetails: familyDetail._id } },
+        { session }
+      );
+
+      await session.commitTransaction();
+
+      return res.status(200).json({
+        success: true,
+        msg: "Family details added successfully",
+        family_detail: familyDetail,
+      });
+    } catch (error) {
+      await session.abortTransaction();
+      throw error; // Ensure the error is caught by the outer catch block
+    } finally {
+      session.endSession();
+    }
   } catch (error) {
-    return res.status(403).json({
-      error: error,
-      msg: " could not add family detail. Please try again later",
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      msg: "Could not add family detail. Please try again later",
+      error: error.message, // Provide the error message
     });
   }
 };

@@ -100,25 +100,25 @@ export const loginUser = async (req, res) => {
 
 // }
 
-export const updateUser = async (req, res) => {
-  console.log({ req });
-  try {
-    const user = await userModel.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
-    console.log(user);
+// export const updateUser = async (req, res) => {
+//   console.log({ req });
+//   try {
+//     const user = await userModel.findByIdAndUpdate(req.params.id, req.body, {
+//       new: true,
+//     });
+//     console.log(user);
 
-    // if (user) {
-
-    //     res.status(200).json({ msg: "User updated in successfully", user: user })
-
-    // } else {
-    //     res.status(400).json({ msg: "couldnot update user. Please try again later" })
-    // }
-  } catch (error) {
-    res.status(400).json({ msg: "User doesnot exist. Please register first" });
-  }
-};
+//     if (user) {
+//       res.status(200).json({ msg: "User updated in successfully", user: user });
+//     } else {
+//       res
+//         .status(400)
+//         .json({ msg: "couldnot update user. Please try again later" });
+//     }
+//   } catch (error) {
+//     res.status(400).json({ msg: "User doesnot exist. Please register first" });
+//   }
+// };
 // export const deleteUser = async (req, res) => {
 //     try {
 //         const user = await userModel.findByIdAndDelete(req.params.id)
