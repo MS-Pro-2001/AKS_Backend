@@ -17,7 +17,7 @@ const familyDetailsSchema = new Schema(
     },
 
     dob: {
-      type: Date,
+      type: String,
       required: [true, "dob is required"],
     },
   },
