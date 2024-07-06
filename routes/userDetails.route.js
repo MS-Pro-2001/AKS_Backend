@@ -11,7 +11,7 @@ import {
 const router = express.Router();
 
 router.get("/fetchallusers", fetchAllUsers);
-router.post("/fetchSingleUser/:id", fetchSingleUser);
+router.get("/fetchSingleUser/:id", fetchSingleUser);
 router.put("/UpdateUser", updateUser);
 
 router.post("/add-family-details", addFamilyDetails);

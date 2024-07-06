@@ -20,7 +20,7 @@ export const fetchAllUsers = async (req, res) => {
 };
 
 export const fetchSingleUser = async (req, res) => {
-  const user_id = req.params._id;
+  const user_id = req.params.id;
   try {
     const user = await userModel.findById({ _id: user_id }).select("-password");
 
