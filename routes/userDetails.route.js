@@ -6,6 +6,7 @@ import {
   fetchFamilyDetails,
   fetchSingleUser,
   updateFamilyDetails,
+  uploadPhoto,
 } from "../controllers/userDetails.controller.js";
 
 const router = express.Router();
@@ -17,5 +18,6 @@ router.put("/UpdateUser", updateUser);
 router.post("/add-family-details", addFamilyDetails);
 router.get("/fetchFamilyDetails/:_id", fetchFamilyDetails);
 router.post("/upateFamilyDetails", updateFamilyDetails);
+// router.post("/uploadPhoto", uploadPhoto);
 
 export default router;

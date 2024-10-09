@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import userModel from "../models/user.model.js";
 import familyDetailsModel from "../models/familyDetails.model.js";
+import multer from "multer";
+import path from "path";
 
 export const fetchAllUsers = async (req, res) => {
   try {
@@ -181,3 +183,56 @@ export const addFamilyDetails = async (req, res) => {
 };
 
 export const updateFamilyDetails = async (req, res) => {};
+
+export const uploadPhoto = (req, res) => {
+  console.log({ body: req.body });
+  console.log({ file: req.file });
+
+  res.send("Uplaoded");
+
+  // try {
+  //   const storage = multer.diskStorage({
+  //     destination: "./uploads/",
+  //     filename: function (_, file, cb) {
+  //       cb(null, Date.now() + path.extname(file.originalname));
+  //     },
+  //   });
+
+  //   function checkFileType(file, cb) {
+  //     const filetypes = /jpeg|jpg|png/;
+  //     const extname = filetypes.test(
+  //       path.extname(file.originalname).toLowerCase()
+  //     );
+  //     const mimetype = filetypes.test(file.mimetype);
+
+  //     if (mimetype && extname) {
+  //       return cb(null, true);
+  //     } else {
+  //       cb("Error: Images only! (jpeg,jpg,png)");
+  //     }
+  //   }
+
+  //   const upload = multer({
+  //     storage: storage,
+  //     limits: { fileSize: 1000000 }, // 1MB,
+  //     fileFilter: function (req, file, cb) {
+  //       checkFileType(file, cb);
+  //     },
+  //   }).single("familyPhoto");
+
+  //   upload(req, res, (err) => {
+  //     if (err) {
+  //       console.log({ err });
+  //       return res.status(500).json({ error: err });
+  //     }
+  //     if (!req.file) {
+  //       return res.status(400).json({ error: "Please attach a file" });
+  //     }
+
+  //     console.log({ file: req.file });
+  //     res.send("Family Photo uploaded");
+  //   });
+  // } catch (error) {
+  //   console.log("catch error", { error });
+  // }
+};

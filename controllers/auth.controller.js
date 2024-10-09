@@ -66,6 +66,8 @@ export const loginUser = async (req, res) => {
   try {
     const user = await userModel.findOne({ phone_no: req.body.phone_no });
 
+    // console.log({ user });
+
     // const match = await bcrypt.compare(req.body.password, user.password)
 
     if (
