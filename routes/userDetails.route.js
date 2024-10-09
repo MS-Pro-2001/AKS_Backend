@@ -6,7 +6,7 @@ import {
   fetchFamilyDetails,
   fetchSingleUser,
   updateFamilyDetails,
-  uploadPhoto,
+  // uploadPhoto,
 } from "../controllers/userDetails.controller.js";
 
 const router = express.Router();

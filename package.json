@@ -1,5 +1,5 @@
 {
-  "name": "aks_merns",
+  "name": "aks_mern",
   "version": "1.0.0",
   "description": "This is the full fledged aks web app",
   "main": "index.js",
